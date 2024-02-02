@@ -19,9 +19,9 @@
       "element": "water"
     },
     {
-      "id": "3333e95c-2213-4a60-86eb-2f4f8116a4da",
+      "id": "98ff49e2-3458-4bbc-9752-3f2f9edf4057",
       "name": "Slava",
-      "description": "Майже все або трохи більше :)",
+      "description": "Усе....",
       "element": "earth"
     }
   ],
@@ -35,7 +35,6 @@
       "name": "fire",
       "label": "Вогонь",
       "className": "btn btn-danger"
-
     },
     {
       "name": "water",

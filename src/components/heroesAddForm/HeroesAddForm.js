@@ -42,6 +42,10 @@ const HeroesAddForm = () => {
             request(`http://localhost:3001/heroes`, 'POST', JSON.stringify(newHero))
            .then(dispatch(heroAdd(newHero)))
            .catch(err => console.log(err))
+
+           setHeroName('');
+           setHeroDescr('');
+           setHeroElement('');
         }
     }
 

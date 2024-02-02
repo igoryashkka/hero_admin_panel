@@ -7,13 +7,14 @@
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {useHttp} from '../../hooks/http.hook';
-import { filtersFetched, filtersFetching, filtersFetchingError, activeFilterChanged } from '../../actions';
+import { filtersFetched, filtersFetching, filtersFetchingError, activeFilterChanged} from '../../actions';
+import classNames from 'classnames';
 
 import Spinner from '../spinner/Spinner';
 
 const HeroesFilters = () => {
 
-    const {filters, filtersLoadingStatus} = useSelector(state => state);
+    const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -30,15 +31,22 @@ const HeroesFilters = () => {
         return <Spinner/>;
     } else if (filtersLoadingStatus === "error") {
         return <h5 className="text-center mt-5">Помилка завантаження</h5>
-    } 
+    }
 
     const renderButtons = (arr) => {
         if (arr.length === 0){
             return;
         } else {
             return arr.map(({name, label, className}) => {
-                return  <button className={className}
+
+        // Используем библиотеку classnames и формируем классы динамически
+        const btnClass = classNames('btn', className, {
+            'active': name === activeFilter
+        });
+
+                return  <button className={btnClass}
                                 key={name}
+                                id={name}
                                 onClick={() =>
                                     {
                                         dispatch(activeFilterChanged(name))

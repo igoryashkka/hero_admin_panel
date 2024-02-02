@@ -18,7 +18,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 heroes: action.payload,
-                heroesLoadingStatus: 'idle'
+                heroesLoadingStatus: 'idle',
+                filteredHeroes: state.activeFilter === 'all' ?
+                action.payload :
+                action.payload.filter(item => item.element === state.activeFilter),
+heroesLoadingStatus: 'idle'
             }
         case 'HEROES_FETCHING_ERROR':
             return {
@@ -30,7 +34,11 @@ const reducer = (state = initialState, action) => {
             const newHeroes = state.heroes.filter(item => item.id !== action.payload);
             return {
                 ...state,
-                heroes: newHeroes
+                heroes: newHeroes,
+                // Фильтруем новые данные по фильтру, который сейчас применяется
+                filteredHeroes: state.activeFilter === 'all' ?
+                newHeroes :
+                newHeroes.filter(item => item.element === state.activeFilter)
             }
 
         case 'HERO_ADD':
@@ -38,7 +46,11 @@ const reducer = (state = initialState, action) => {
             const newArr = [...state.heroes, action.payload];
             return {
                 ...state,
-                heroes: newArr
+                heroes: newArr,
+                // Фильтруем новые данные по фильтру, который сейчас применяется
+                filteredHeroes: state.activeFilter === 'all' ?
+                newArr :
+                newArr.filter(item => item.element === state.activeFilter)
             }
 
         case 'FILTERS_FETCHING':
