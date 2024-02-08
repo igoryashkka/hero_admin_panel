@@ -17,12 +17,6 @@
       "name": "Морський герой",
       "description": "Як аквамен, але не із DC",
       "element": "water"
-    },
-    {
-      "id": "98ff49e2-3458-4bbc-9752-3f2f9edf4057",
-      "name": "Slava",
-      "description": "Усе....",
-      "element": "earth"
     }
   ],
   "filters": [

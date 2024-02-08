@@ -16,15 +16,13 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { filtersFetched, filtersFetching, filtersFetchingError } from '../../actions';
 
-import Spinner from '../spinner/Spinner';
-
 const HeroesAddForm = () => {
 
     const [heroName, setHeroName] = useState('');
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElement, setHeroElement] = useState('');
 
-    const {filters, filtersLoadingStatus} = useSelector(state => state);
+    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -40,6 +38,7 @@ const HeroesAddForm = () => {
                 element: heroElement
             }
             request(`http://localhost:3001/heroes`, 'POST', JSON.stringify(newHero))
+
            .then(dispatch(heroAdd(newHero)))
            .catch(err => console.log(err))
 
@@ -60,7 +59,7 @@ const HeroesAddForm = () => {
 
     const renderOptions = (arr) => {
         if (filtersLoadingStatus === "loading") {
-            return <Spinner/>;
+            return <option>Загрузка элементов</option>
         } else if (filtersLoadingStatus === "error") {
             return <h5 className="text-center mt-5">Помилка завантаження</h5>
         }
@@ -70,7 +69,7 @@ const HeroesAddForm = () => {
         } else {
             return arr.map(({name, label}) => {
                 // if (name === 'all')  return;
-                return <option value={name}> {label} </option>
+                return <option key={name} value={name}> {label} </option>;
             })
         }
     }
@@ -80,7 +79,7 @@ const HeroesAddForm = () => {
     return (
         <form className="border p-4 shadow-lg rounded"
             onSubmit = {onSave}>
-            <div className="mb-3">
+            <div  className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Ім'я нового героя</label>
                 <input
                     required
@@ -94,7 +93,7 @@ const HeroesAddForm = () => {
                     />
             </div>
 
-            <div className="mb-3">
+            <div  className="mb-3">
                 <label htmlFor="text" className="form-label fs-4">Опис</label>
                 <textarea
                     required
@@ -108,7 +107,7 @@ const HeroesAddForm = () => {
                     />
             </div>
 
-            <div className="mb-3">
+            <div  className="mb-3">
                 <label htmlFor="element" className="form-label">Вибрати елемент героя</label>
                 <select
                     required
@@ -118,13 +117,6 @@ const HeroesAddForm = () => {
                     value = {heroElement}
                     onChange = {(e) => setHeroElement(e.target.value)}>
                         {options}
-
-                    {/* <option >Я володію елементом...</option>
-                    <option value="fire">Вогонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Вітер</option>
-                    <option value="earth">Земля</option> */}
-
                 </select>
             </div>
 
