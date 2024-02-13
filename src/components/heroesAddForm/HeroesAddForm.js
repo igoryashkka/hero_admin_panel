@@ -12,9 +12,7 @@ import { heroAdd } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';
 import {useHttp} from '../../hooks/http.hook';
 
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { filtersFetched, filtersFetching, filtersFetchingError } from '../../actions';
 
 const HeroesAddForm = () => {
 
@@ -48,15 +46,6 @@ const HeroesAddForm = () => {
         }
     }
 
-    useEffect(() => {
-        dispatch(filtersFetching());
-        request("http://localhost:3001/filters")
-            .then(data => dispatch(filtersFetched(data)))
-            .catch(() => dispatch(filtersFetchingError()))
-
-        // eslint-disable-next-line
-    }, []);
-
     const renderOptions = (arr) => {
         if (filtersLoadingStatus === "loading") {
             return <option>Загрузка элементов</option>
@@ -78,19 +67,20 @@ const HeroesAddForm = () => {
 
     return (
         <form className="border p-4 shadow-lg rounded"
-            onSubmit = {onSave}>
+            onSubmit = {onSave}
+            >
             <div  className="mb-3">
                 <label htmlFor="name" className="form-label fs-4">Ім'я нового героя</label>
                 <input
                     required
+                    autoComplete="on"
                     type="text"
                     name="name"
                     className="form-control"
                     id="name"
                     placeholder="Як мене звати?"
                     value = {heroName}
-                    onChange = {(e) => setHeroName(e.target.value)}
-                    />
+                    onChange = {(e) => setHeroName(e.target.value)}/>
             </div>
 
             <div  className="mb-3">
