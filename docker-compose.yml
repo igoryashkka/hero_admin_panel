@@ -6,6 +6,12 @@ services:
     restart: always
     ports:
       - '3000:3000'
+      - '3001:3001'
     volumes:
       - /app/node_modules 
       - ./frontend:/app  
+
+    volumes:
+      - /app/node_modules 
+      - ./frontend:/app  
+
