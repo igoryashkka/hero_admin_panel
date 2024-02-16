@@ -10,4 +10,8 @@ services:
     volumes:
       - /app/node_modules 
       - ./frontend:/app  
-    
+
+    volumes:
+      - /app/node_modules 
+      - ./frontend:/app  
+

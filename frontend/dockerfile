@@ -12,6 +12,10 @@ RUN npm install -g json-server
 RUN npm i
 
 
+COPY package*.json ./
+
+RUN npm i
+
 COPY . .
 
 CMD [ "npm","start"]
